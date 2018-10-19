@@ -32,9 +32,16 @@ function convertColumn(coord) {
   return col.charCodeAt() - 97;
 }
 
+function convertNumberToLetter(colNum) {
+  return String.fromCharCode(colNum + 97).toUpperCase();
+}
+
 function lightCell(coord) {
   const col = convertColumn(coord);
   const row = coord.slice(coord.length - 1, coord.length) - 1;
+  if (col > GRID.length || row > GRID[0].length) {
+    return false;
+  }
   return GRID[row][col];
 }
 
@@ -46,4 +53,39 @@ function isCurrent(coord) {
   return lightCell(coord) === '~';
 }
 
-console.log(isCurrent('E2'));
+function lightRow(row) {
+  return GRID[row - 1];
+}
+
+function lightColumn(column) {
+  const columnArray = [];
+  GRID.forEach((row) => {
+    columnArray.push(row[convertColumn(column)]);
+  });
+  return columnArray;
+}
+
+function getAll(symbol) {
+  const results = [];
+  for (let i = 0; i < GRID.length; i++) {
+    for (let j = 0; j < GRID[i].length; j++) {
+      if (GRID[i][j] === symbol) {
+        const col = convertNumberToLetter(j);
+        results.push(col + (i + 1));
+      }
+    }
+  }
+  return results;
+}
+
+function allRocks() {
+  return getAll('^');
+}
+
+function allCurrents() {
+  return getAll('~');
+}
+
+console.log(allRocks());
+console.log(allCurrents());
+// expect ['E2', 'C8', 'D8', 'D9', 'E9', 'E10', 'F10']

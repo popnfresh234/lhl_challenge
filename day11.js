@@ -46,18 +46,4 @@ function isCurrent(coord) {
   return lightCell(coord) === '~';
 }
 
-function lightRow(row) {
-  return GRID[row - 1];
-}
-
-function lightColumn(column) {
-  const columnArray = [];
-  GRID.forEach((row) => {
-    columnArray.push(row[convertColumn(column)]);
-  });
-  return columnArray;
-}
-
-console.log(lightColumn('C'));
-
-// expect ["", "v", "", "", "", "", "", "~", "", ""]
+console.log(isCurrent('E2'));

@@ -35,6 +35,9 @@ function convertColumn(coord) {
 function lightCell(coord) {
   const col = convertColumn(coord);
   const row = coord.slice(coord.length - 1, coord.length) - 1;
+  if (col > GRID.length || row > GRID[0].length) {
+    return false;
+  }
   return GRID[row][col];
 }
 
@@ -46,4 +49,18 @@ function isCurrent(coord) {
   return lightCell(coord) === '~';
 }
 
-console.log(isCurrent('E2'));
+function lightRow(row) {
+  return GRID[row - 1];
+}
+
+function lightColumn(column) {
+  const columnArray = [];
+  GRID.forEach((row) => {
+    columnArray.push(row[convertColumn(column)]);
+  });
+  return columnArray;
+}
+
+console.log(lightColumn('C'));
+
+// expect ["", "v", "", "", "", "", "", "~", "", ""]

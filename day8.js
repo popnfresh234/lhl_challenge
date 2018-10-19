@@ -46,8 +46,4 @@ function isCurrent(coord) {
   return lightCell(coord) === '~';
 }
 
-function isShip(coord) {
-  return lightCell(coord) === 'v';
-}
-
-console.log(isShip('B3'));
+console.log(isCurrent('E2'));
