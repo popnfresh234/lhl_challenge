@@ -53,11 +53,6 @@ function isCurrent(coord) {
   return lightCell(coord) === '~';
 }
 
-
-function isShip(coord) {
-  return lightCell(coord) === 'v';
-}
-
 function lightRow(row) {
   return GRID[row - 1];
 }
@@ -99,7 +94,11 @@ function firstRock() {
   return allRocks()[0];
 }
 
-function firstCurrent() {
-  return allCurrents()[0];
+
+function shipReport() {
+  let ships = allShips();
+  ships = ships.sort((ship1, ship2) => convertColumn(ship1) - convertColumn(ship2));
+  return [ships[0], ships[ships.length - 1]];
 }
 
+console.log(shipReport());
